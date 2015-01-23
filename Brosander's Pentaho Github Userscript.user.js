@@ -10,7 +10,7 @@
 
 // Pull request functionality
 var pullRequest = function() {
-    if (window.location.href.match(/^https?:\/\/github\.com\/pentaho\/.*\/pull\/[0-9]+$/)) {
+    if (window.location.href.match(/^https?:\/\/github\.com\/pentaho\/.*\/pull\/[0-9]+\/?.*$/)) {
         // Add link to jira case in pull request title (Thanks to Matty B for the idea, extension reference)
         var jsIssueTitles = document.getElementsByClassName('js-issue-title');
         if (jsIssueTitles.length > 0) {

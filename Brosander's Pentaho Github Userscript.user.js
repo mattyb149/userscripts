@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brosander's Pentaho Github Userscript
 // @namespace    https://github.com/brosander/userscripts
-// @version      0.0.2
+// @version      0.0.3
 // @description  This userscript will enhance the github ui in pentaho repositories
 // @author       brosander
 // @match        https://github.com/pentaho/*
@@ -14,7 +14,7 @@ var pullRequest = function() {
         // Add link to jira case in pull request title (Thanks to Matty B for the idea, extension reference)
         var jsIssueTitles = document.getElementsByClassName('js-issue-title');
         if (jsIssueTitles.length > 0) {
-            var issueRegex = /^(\w*)(\[?([A-Z]+-[0-9]+)\]?)/;
+            var issueRegex = /^(\s*)(\[?([A-Z]+-[0-9]+)\]?)/;
             for (var i = 0; i < jsIssueTitles.length; i++) {
                 var jsIssueTitle = jsIssueTitles[i];
                 var replacedText = jsIssueTitle.textContent.replace(issueRegex, '');

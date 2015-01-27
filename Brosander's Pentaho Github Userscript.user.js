@@ -39,10 +39,11 @@ var pullRequest = function() {
         if (headerUsernames.length == 1) {
             var mergedDivs = document.getElementsByClassName('state-merged');
             if (mergedDivs.length == 1) {
-              var mergerUsername = headerUsernames[0].textContent.trim();
+                var mergerUsername = headerUsernames[0].textContent.trim();
                 var mergedDiv = mergedDivs[0];
                 var tableItemParent = mergedDiv.parentNode.parentNode;
                 var tableItems = tableItemParent.getElementsByClassName('flex-table-item-primary');
+                var smerge = false;
                 if (tableItems.length == 1) {
                     var currentBranches = tableItems[0].getElementsByClassName('current-branch');
                     if (currentBranches.length == 2) {
@@ -51,6 +52,28 @@ var pullRequest = function() {
                             var authorUsername = users[0].textContent.trim();
                             if (mergerUsername === authorUsername) {
                                 mergedDiv.textContent = mergedDiv.textContent.replace('Merged', 'S\'merged');
+                                mergedDiv.setAttribute('title', 'Author self-merged the pull request.');
+                                smerge = true;
+                            }
+                        }
+                    }
+                }
+                if (!smerge) {
+                    var openedDivs = document.getElementsByClassName('timeline-comment-header');
+                    if (openedDivs.length == 1) {
+                        var openedTimes = openedDivs[0].getElementsByTagName('time');
+                        if (openedTimes.length == 1) {
+                            var closedDivs = document.getElementsByClassName('discussion-item-merged');
+                            if (closedDivs.length == 1) {
+                                var closedTimes = closedDivs[0].getElementsByTagName('time');
+                                if (closedTimes.length == 1) {
+                                    var openedTime = new Date(openedTimes[0].getAttribute('datetime'));
+                                    var closedTime = new Date(closedTimes[0].getAttribute('datetime'));
+                                    if (closedTime.getTime() - openedTime.getTime() < 300000) {
+                                        mergedDiv.textContent = mergedDiv.textContent.replace('Merged', 'Stat-Pad');
+                                        mergedDiv.setAttribute('title', 'Pull request was merged within 5 minutes of opening.');
+                                    }
+                                }
                             }
                         }
                     }

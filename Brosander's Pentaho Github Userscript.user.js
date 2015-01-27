@@ -9,7 +9,7 @@
 // ==/UserScript==
 
 // Pull request functionality
-var pullRequest = function() {
+var processPentahoUserscript = function() {
     if (window.location.href.match(/^https?:\/\/github\.com\/pentaho\/.*\/pull\/[0-9]+\/?.*$/)) {
         // Add link to jira case in pull request title (Thanks to Matty B for the idea, extension reference)
         var jsIssueTitles = document.getElementsByClassName('js-issue-title');
@@ -81,9 +81,22 @@ var pullRequest = function() {
             }
         }
     }
+
+    var links = document.getElementsByTagName("a");
+    for (var i = 0, l = links.length; i < l; i++) {
+        var link = links[i];
+        if (link.textContent.trim() === 'pentaho-nbaker') {
+            var clue = document.createElement('img');
+            clue.src = 'https://raw.githubusercontent.com/brosander/userscripts/master/blues-clues-paw-th.png';
+            clue.style.height = '24px';
+            clue.style.width = '24px';
+            link.appendChild(clue);
+            link.style['max-width'] = '150px';
+        }
+    }
 }
 
-pullRequest();
+processPentahoUserscript();
 $(document).on('pjax:complete', function() {
-  pullRequest();
+  processPentahoUserscript();
 })

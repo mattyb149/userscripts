@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brosander's Pentaho Github Userscript
 // @namespace    https://github.com/brosander/userscripts
-// @version      0.0.1
+// @version      0.0.2
 // @description  This userscript will enhance the github ui in pentaho repositories
 // @author       brosander
 // @match        https://github.com/pentaho/*

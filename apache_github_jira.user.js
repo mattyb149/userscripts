@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Brosander's and MattyB's ApacheGithubJira Github Userscript
 // @namespace    https://github.com/mattyb149/userscripts
-// @version      0.0.2
+// @version      0.0.3
 // @description  This userscript will enhance the github ui in Apache GitHub repositories
 // @author       brosander mattyb149
 // @match        https://github.com/apache/*
@@ -21,7 +21,7 @@ var processApacheGithubJiraUserscript = function() {
                 if (replacedText != jsIssueTitle.textContent) {
                     var match = jsIssueTitle.textContent.match(issueRegex);
                     var link = document.createElement('a');
-                    link.href = 'http://issues.apache.org/browse/' + match[3];
+                    link.href = 'http://issues.apache.org/jira/browse/' + match[3];
                     link.textContent = match[2];
                     jsIssueTitle.parentNode.insertBefore(link, jsIssueTitle);
                     if (match[1]) {

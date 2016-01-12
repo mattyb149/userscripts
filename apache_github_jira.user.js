@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         Brosander's and MattyB's ApacheGithubJira Github Userscript
 // @namespace    https://github.com/mattyb149/userscripts
-// @version      0.0.1
+// @version      0.0.2
 // @description  This userscript will enhance the github ui in Apache GitHub repositories
 // @author       brosander mattyb149
-// @match        https://github.com/ApacheGithubJira/*
+// @match        https://github.com/apache/*
 // @grant        none
 // ==/UserScript==
 

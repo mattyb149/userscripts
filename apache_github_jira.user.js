@@ -14,26 +14,28 @@ var processApacheGithubJiraUserscript = function() {
         // Add link to jira case in pull request title (Thanks to Matty B for the idea, extension reference)
         var jsIssueTitles = document.getElementsByClassName('js-issue-title');
         if (jsIssueTitles.length > 0) {
-            var issueRegex = /^(\s*)(\[?([A-Z]+-[0-9]+)\]?)/;
+            // Select any {Project Apache JIRA Key} {Issue Number} pattern with a hyphen or space delimiter.
+            // GitHub defaults to stripping hyphens and title casing when generating the PR title from commit
+            var issueRegex = /^(\s*)(\[?([A-Za-z]+[-\s][0-9]+)\]?)/;
             for (var i = 0; i < jsIssueTitles.length; i++) {
                 var jsIssueTitle = jsIssueTitles[i];
                 var replacedText = jsIssueTitle.textContent.replace(issueRegex, '');
                 if (replacedText != jsIssueTitle.textContent) {
                     var match = jsIssueTitle.textContent.match(issueRegex);
                     var link = document.createElement('a');
-                    link.href = 'http://issues.apache.org/jira/browse/' + match[3];
+                    // Format our issue to be uppercase and hyphen separated
+                    link.href = 'http://issues.apache.org/jira/browse/' + match[3].toUpperCase().replace(' ','-');
                     link.textContent = match[2];
                     jsIssueTitle.parentNode.insertBefore(link, jsIssueTitle);
                     if (match[1]) {
                         var span = jsIssueTitle.cloneNode(false);
-                        span.textContent = match[2];
                         link.parentNode.insertBefore(span, link);
                     }
                     jsIssueTitle.textContent = replacedText;
                 }
             }
         }
-        
+
         // Change "Merged" icon to "S'merged" if the author self merged
         var headerUsernames = document.getElementsByClassName('pull-header-username');
         if (headerUsernames.length == 1) {
@@ -82,9 +84,9 @@ var processApacheGithubJiraUserscript = function() {
         }
     }
 
-}
+};
 
 processApacheGithubJiraUserscript();
 $(document).on('pjax:complete', function() {
   processApacheGithubJiraUserscript();
-})
+});
